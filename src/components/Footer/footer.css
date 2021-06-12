@@ -1,0 +1,41 @@
+.footer{
+    background-color: #1A202C;
+}
+
+.footer_content{
+    padding: 100px;
+    margin-right: auto;
+    margin-left: auto;
+    color: white;
+}
+
+.footer_center{
+    text-align: center;
+    padding-top: 30px;
+}
+
+.footer_nav a{
+    padding: 0px 25px;
+    color: white;
+    text-decoration: none;
+    transition: 0.25s;
+}
+
+.footer_nav a:hover{
+    color: #6415FE;
+}
+
+.footer_main{
+    font-size: 1.8rem;
+    font-weight: bold;
+}
+
+.footer_copyright p{
+    color:#717467;
+    font-size: 0.9rem;
+}
+.socialmedia_svg{
+    width: 70px;
+    color: white;
+    padding: 0 20px;
+}

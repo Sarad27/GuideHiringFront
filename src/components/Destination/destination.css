@@ -1,0 +1,47 @@
+.destination_div{
+    margin: 100px 50px;
+    text-align: center;
+}
+
+.destination_img{
+    width: 90%;
+ }
+
+.destination_detail{
+    text-align: left;
+}
+
+.destination_name{
+    font-size: 42px;
+    font-weight: bold;
+    color: #243E63;
+}
+
+.destination_location{
+    font-size: 21px;
+    color: #4A5568;
+    font-weight: bold;
+}
+
+.destination_details{
+    color: #1A202C;
+    text-align: justify;
+    letter-spacing: 1px;
+}
+
+.destination_button{
+    width: 20%;
+    height: 50px;
+    background-color: #6415FE;
+    color: white;
+    font-weight: bold;
+    letter-spacing: 2px;
+    border: none;
+    border-radius: 20px;
+    transition: 1s;
+}
+
+.destination_button:hover{
+    background-color: #1a34b7;
+    transform: scale(1.1);
+}

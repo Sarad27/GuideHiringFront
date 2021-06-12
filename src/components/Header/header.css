@@ -1,0 +1,40 @@
+.container{
+    max-width: 1400px;
+}
+
+.navbar{
+    padding-top: 20px ;
+    padding-bottom: 20px;
+}
+
+.nav-link{
+    font-weight: bold;
+    color: #463E63 !important;
+    transition: 0.25s;
+    font-size: 0.899rem;
+}
+
+.nav-link:hover{
+    color: #6415FE !important;
+}
+
+.signUp{
+    border-radius: 12px;
+    background-color: #6415FF;
+    border: none;
+    color: white;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    padding: 10px 32px;
+    position: relative;
+    bottom: 12px;
+    right: 65px;
+}
+
+@media screen and (min-width: 992px) {
+    .nav-link {
+        padding: 0 25px !important;
+        margin: 0 20px;
+    }
+}

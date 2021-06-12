@@ -1,0 +1,35 @@
+.mainImage{
+    width: 100%;
+}
+
+.body_h1{
+    font-size: 3.2rem;
+    font-weight: bold;
+    margin-bottom: 50px;
+}
+
+.main_info{
+    padding: 50px;
+}
+
+.main_info p{
+    font-size: 1.2rem;
+    text-align: justify;
+}
+
+.main_info ul{
+    list-style-type: none;
+    padding-left: 0;
+}
+
+ul li{
+    padding-top: 20px;
+}
+
+
+
+.li_whyUs{
+    padding-left: 15px;
+    display: inline;
+    font-size: 1rem !important;
+}

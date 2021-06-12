@@ -1,0 +1,19 @@
+.steps{
+    text-align: left;
+    margin: 100px;
+}
+
+.step_heading{
+    color: #835BFF;font-weight: bold;
+}
+
+.step_detail{
+    color: #506582;
+}
+
+.step_works{
+    line-height: 80px;
+    font-weight: bold;
+    color: #6415FF;
+}
+

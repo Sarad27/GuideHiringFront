@@ -2,10 +2,21 @@ import React, {useEffect, useState} from "react";
 import axios from "axios";
 import {Container, Row, Col} from "react-bootstrap";
 import './destination.css'
+import Modal from "../Modal/Modal";
+import DisplayGuides from "../DisplayGuides/DisplayGuides";
+import {useHistory} from "react-router-dom";
+import {connect} from "react-redux";
+
 
 const Destination = (props) =>{
 
+    const history = useHistory();
+
     const [destinations, setDestinations] = useState([]);
+
+    const [auth, setAuth] = useState(false)
+
+    const [show, setShow] = useState(false);
 
     useEffect(async() =>{
 
@@ -15,29 +26,58 @@ const Destination = (props) =>{
 
     },[])
 
+    useEffect(async () =>{
+
+        if(props.user.user.isAuthenticated == true){
+            setAuth(true)
+        }
+
+    },[props.user])
+
+
     return(
+        <>
+            <Modal show={show}  modalClosed={() => {setShow(false)}}>
 
-           <Row className="destination_div">
-               <Col lg={5}>
-                   <img className="destination_img" src= {`http://localhost:5000/${destinations.image}`} />
-               </Col>
+                <DisplayGuides destinationId={props.match.params.id} />
 
-               <Col className="destination_detail" lg={7}>
-                   <div style={{width: "80%"}}>
-                       <p className="destination_name">{destinations.name}</p>
+            </Modal>
 
-                       <p className="destination_location"> Located At {destinations.location}</p>
+            <Row className="destination_div">
+                <Col lg={5}>
+                    <img className="destination_img" src= {`http://localhost:5000/${destinations.image}`} />
+                </Col>
 
-                       <p className="destination_details">{destinations.details}</p>
+                <Col className="destination_detail" lg={7}>
+                    <div style={{width: "80%"}}>
+                        <p className="destination_name">{destinations.name}</p>
 
-                       <button className="destination_button">Hire A Guide</button>
+                        <p className="destination_location"> Located At {destinations.location}</p>
 
-                   </div>
+                        <p className="destination_details">{destinations.details}</p>
 
-               </Col>
-           </Row>
+                        <br/>
 
+                        {auth === false ? <button className="destination_button" onClick={() =>{ window.location.href = 'http://localhost:3000/signUp';  }}> Signup To Hire</button> :
+
+                            <button onClick={() =>{ setShow(true)}} className="destination_button">Hire A Guide</button>}
+
+                    </div>
+
+                </Col>
+            </Row>
+
+
+
+        </>
     )
 }
 
-export default Destination;
+const mapStateToProps = (state) => {
+    return{
+        user: state
+    }
+}
+
+
+export default connect(mapStateToProps)(Destination);

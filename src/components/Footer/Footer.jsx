@@ -3,6 +3,7 @@ import("./footer.css");
 
 function Footer(){
 
+
     if(window.location.pathname === '/signUp' || window.location.pathname === '/login' ||
         window.location.pathname === '/signUp/TouristDetails' || window.location.pathname === '/signUp/GuideDetails'){
         return null

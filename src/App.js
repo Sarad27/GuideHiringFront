@@ -27,28 +27,29 @@ const App = (user) => {
 
 
     return (
-        <Router>
-            <Header data={user}/>
-            <Switch>
+            <Router>
 
-                <Route exact path="/signUp/GuideDetails" component={GuideDetails}/>
-                <Route exact path="/signUp/TouristDetails" component={TouristDetails}/>
+                <Header data={user}/>
+                <Switch>
 
-                {user.user.isAuthenticated == false &&
-                <Route exact path="/login" component={Login}/>}
+                    <Route exact path="/signUp/GuideDetails" component={GuideDetails}/>
+                    <Route exact path="/signUp/TouristDetails" component={TouristDetails}/>
 
-                {
-                    user.user.isAuthenticated == false &&
-                    <Route exact path="/signUp" component={SignUp}/>
-                }
+                    {user.user.isAuthenticated == false &&
+                    <Route exact path="/login" component={Login}/>}
 
-                <Route exact path="/profile" component={Profile}/>
-                <Route exact path="/destination/:id" component={Destination} />
-                <Route exact path="/" component={Home}/>
+                    {
+                        user.user.isAuthenticated == false &&
+                        <Route exact path="/signUp" component={SignUp}/>
+                    }
 
-            </Switch>
-            <Footer/>
-        </Router>
+                    <Route exact path="/profile" component={Profile}/>
+                    <Route exact path="/destination/:id" component={Destination} />
+                    <Route exact path="/" component={Home}/>
+
+                </Switch>
+                <Footer/>
+            </Router>
     );
 }
 

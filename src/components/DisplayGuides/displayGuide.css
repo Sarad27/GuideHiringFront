@@ -1,0 +1,16 @@
+.displayGuides_main{
+    height: 70px;
+}
+
+.displayGuides_btn{
+    background-color: #6415FF;
+    color: white;
+    border: none;
+    height: 50px;
+    width: 50%;
+    border-radius: 20px;
+}
+
+.displayGuides_col{
+    line-height: 50px;
+}

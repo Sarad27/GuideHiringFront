@@ -40,3 +40,13 @@
     margin-top: 70px;
     text-align: center;
 }
+
+.logout{
+    height: 40px;
+    background-color: #6415FF;
+    border: none;
+    border-radius: 15px;
+    margin-top: 20px;
+    color: white;
+    width: 10%;
+}

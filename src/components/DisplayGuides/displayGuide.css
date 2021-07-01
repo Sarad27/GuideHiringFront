@@ -14,3 +14,18 @@
 .displayGuides_col{
     line-height: 50px;
 }
+
+.displatGuides-btn{
+    border-radius: 50%;
+    border: none;
+   
+    padding: 8px;
+}
+
+.online{
+    background-color: #04AA6D;
+}
+
+.offline{
+    background-color: #FF616D;
+}

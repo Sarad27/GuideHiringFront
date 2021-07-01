@@ -1,12 +1,26 @@
 import React from "react";
-import {Col, Image, Row} from "react-bootstrap";
+import {Redirect, useHistory} from "react-router-dom";
+import axios from "axios";
 
 import './profile.css'
 
 const Tourist = (props) =>{
+
+    const history = useHistory();
+
     const user = props.data
 
-    console.log(user)
+    const logout = async () =>{
+
+        const token = localStorage.getItem('user');
+
+        await axios.get('http://localhost:5000/api/auth/logout', {headers: {"Authorization" : `Bearer ${token}`}}) 
+
+        localStorage.removeItem('user');
+
+        history.go(0);
+
+    }
 
     return(
 
@@ -21,6 +35,8 @@ const Tourist = (props) =>{
                     <h3> {user.name}</h3>
                     {user.email}
                 </div>
+
+                <button onClick={logout} className="logout">Log out</button>
 
             </div>
 

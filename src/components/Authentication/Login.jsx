@@ -25,10 +25,22 @@ function SignUp(){
         }))
     }
 
-    const handleSubmitClick = (e)=>{
+    const handleSubmitClick = async (e)=>{
         e.preventDefault();
 
+        
+
+        const location = await axios.get('https://www.geolocation-db.com/json/')
+
         const data = values;
+
+        data.location = {
+            "type" : "Point",
+            "coordinates" : [
+                location.data.latitude,
+                location.data.longitude
+            ]
+        }
 
         axios.post('http://localhost:5000/api/auth/login', data).then( response =>{
 
@@ -36,7 +48,7 @@ function SignUp(){
             localStorage.setItem('user', response.data.results.token);
 
             store.dispatch(getUser()).then(res =>{
-                    history.push('/profile');
+                    history.push('/');
             }
             )
 

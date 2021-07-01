@@ -10,11 +10,70 @@ const DisplayGuides = (props) =>{
 
     const [data, setData] = useState([]);
 
+    const [finalData, setFinalData] = useState([]);
+
+    function calculateDistance(touristGeometry, guideGeometry){
+
+        Number.prototype.toRad = function() {
+            return this * Math.PI / 180;
+         }
+
+        const lat1 = touristGeometry.coordinates[0]
+        const lon1 = touristGeometry.coordinates[1]
+        const lat2 =  guideGeometry.coordinates[0]
+        const lon2 =  guideGeometry.coordinates[1]
+
+        const R = 6731 ; //km
+
+        const l1 = lat1.toRad();
+        const l2 = lat2.toRad();
+
+        const dLat = (lat2-lat1).toRad();
+        const dLon = (lon2-lon1).toRad();
+
+        const a = Math.sin(dLat / 2) * Math.sin(dLat / 2) +  Math.cos(l1) * Math.cos(l2)  * Math.sin(dLon / 2) * Math.sin(dLon / 2);
+
+
+        const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+
+
+        const d = R * c; //in km
+        
+        return d;
+
+    }
+
+    
+
     useEffect(() =>{
          axios.get("http://localhost:5000/api/user/guides").then(res =>{
              setData(res.data.results)
          })
     },[])
+
+    useEffect(() =>{
+
+        if(data.length>0){
+
+            if(props.userData){
+                data.forEach( data =>{
+                    const distance = calculateDistance(props.userData.geometry, data.geometry).toFixed(2)
+                    data.distance = distance;
+                })
+    
+                data.sort(function(a,b) {
+                    return a.distance - b.distance
+                })
+    
+                data.sort(function(a,b){
+                    return b.status - a.status 
+                })
+            }
+         
+        }
+
+    },[data])
+    
 
     const hireGuide = (index) =>{
         const hire = new Object();
@@ -33,12 +92,18 @@ const DisplayGuides = (props) =>{
         }
     }
 
-    const guides = data.map((data, index) =>{
 
+    const guides = data.map((data, index) =>{
         return(
             <div className="displayGuides_main">
                 <Row>
                     <Col className="displayGuides_col">  {data.name} </Col>
+                    <Col className="displayGuides_col"> 
+                    
+                    {data.status == true ? <button className="displatGuides-btn online"></button> : <button className="displatGuides-btn offline"></button>}
+
+                     </Col>
+                    <Col className="displayGuides_col"> {data.distance} km </Col>
                     <Col className="displayGuides_col"> {data.gProfile.city} </Col>
                     <Col className="displayGuides_col">
 
@@ -50,6 +115,9 @@ const DisplayGuides = (props) =>{
             </div>
         )
     });
+
+
+    
 
     return(
         <div style={{textAlign : "center"}}>

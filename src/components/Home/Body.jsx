@@ -7,9 +7,9 @@ function Body(){
         <Container>
             <Row>
                 <Col lg={5} className="main_info">
-                    <h1 className="body_h1">Beautiful React Templates for you.</h1>
-                    <p>Our templates are easy to setup, understand and customize.
-                        Fully modular components with a variety of pages and components.</p>
+                    <h1 className="body_h1">A Destination For The New Millennium </h1>
+                    <p>Hiring Guide made easier and more accessible with our online Guide Hiring System. Come join us, explore and experience the new features.
+                    </p>
 
                     <h2 style={{marginTop: "55px"}}>Why Us</h2>
 

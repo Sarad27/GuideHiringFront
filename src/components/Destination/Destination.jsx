@@ -39,7 +39,7 @@ const Destination = (props) =>{
         <>
             <Modal show={show}  modalClosed={() => {setShow(false)}}>
 
-                <DisplayGuides destinationId={props.match.params.id} />
+                <DisplayGuides destinationId={props.match.params.id} userData={props.user.user.user} />
 
             </Modal>
 
@@ -58,7 +58,9 @@ const Destination = (props) =>{
 
                         <br/>
 
-                        {auth === false ? <button className="destination_button" onClick={() =>{ window.location.href = 'http://localhost:3000/signUp';  }}> Signup To Hire</button> :
+                        {auth === false ? <button className="destination_button" onClick={() =>{ window.location.href = 'http://localhost:3000/login';  }}> Login To Hire</button> :
+
+                                props.user.user.user.role === "GUIDE" ? <> </> :
 
                             <button onClick={() =>{ setShow(true)}} className="destination_button">Hire A Guide</button>}
 

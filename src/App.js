@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react";
-import {BrowserRouter, BrowserRouter as Router, Route, Switch} from "react-router-dom";
+import {BrowserRouter, BrowserRouter as Router, Route, Switch, Redirect} from "react-router-dom";
 import Home from "./components/Home/Home";
 import Login from "./components/Authentication/Login";
 import SignUp from "./components/Authentication/SignUp";
@@ -14,8 +14,6 @@ import Header from "./components/Header/Header";
 import Footer from "./components/Footer/Footer";
 import Destination from "./components/Destination/Destination";
 
-import Spinner from './components/Spinner/Spinner'
-
 
 const App = (user) => {
 
@@ -24,6 +22,8 @@ const App = (user) => {
     useEffect(() => {
         store.dispatch(getUser())
     }, [])
+
+    console.log(user.user.isAuthenticated)
 
 
     return (
@@ -43,7 +43,16 @@ const App = (user) => {
                         <Route exact path="/signUp" component={SignUp}/>
                     }
 
-                    <Route exact path="/profile" component={Profile}/>
+
+
+                    <Route exact path="/profile" render={() => (
+                        user.user.isAuthenticated ? (
+                            <Profile/>
+                        ) : (
+                            <Home/>
+                        )
+                    )}/>
+
                     <Route exact path="/destination/:id" component={Destination} />
                     <Route exact path="/" component={Home}/>
 

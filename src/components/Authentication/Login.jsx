@@ -12,7 +12,7 @@ function SignUp(){
 
     const [values, setValues] = useState({
         email: "",
-        password: "",
+        password: ""
     })
 
     const [valid, setValid] = useState(true);
@@ -26,9 +26,8 @@ function SignUp(){
     }
 
     const handleSubmitClick = async (e)=>{
-        e.preventDefault();
 
-        
+        e.preventDefault(); 
 
         const location = await axios.get('https://www.geolocation-db.com/json/')
 
@@ -46,8 +45,10 @@ function SignUp(){
 
 
             localStorage.setItem('user', response.data.results.token);
+            
 
             store.dispatch(getUser()).then(res =>{
+                
                     history.push('/');
             }
             )

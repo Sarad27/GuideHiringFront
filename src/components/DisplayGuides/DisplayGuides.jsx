@@ -3,8 +3,11 @@ import axios from "axios";
 import './displayGuide.css'
 import {Col, Row} from "react-bootstrap";
 import {useHistory} from "react-router-dom";
+import io from "socket.io-client";
+
 
 const DisplayGuides = (props) =>{
+
 
     const history = useHistory();
 
@@ -55,9 +58,12 @@ const DisplayGuides = (props) =>{
 
         if(data.length>0){
 
+
             if(props.userData){
                 data.forEach( data =>{
+
                     const distance = calculateDistance(props.userData.geometry, data.geometry).toFixed(2)
+
                     data.distance = distance;
                 })
     
@@ -85,7 +91,13 @@ const DisplayGuides = (props) =>{
         if(token){
             axios.post("http://localhost:5000/api/hire", hire,  {headers: {"Authorization" : `Bearer ${token}`}})
                 .then(res =>{
+
+                    var socketData = res.data.results
+
                     if(res.data.code == 201){
+
+                        props.socket.emit("Hire Notification To Guide", (socketData))
+
                         history.push('/')
                     }
                 })
@@ -126,5 +138,7 @@ const DisplayGuides = (props) =>{
         </div>
     )
 }
+
+
 
 export default DisplayGuides;

@@ -17,19 +17,54 @@ import Destination from "./components/Destination/Destination";
 
 const App = (user) => {
 
-    const [loading, setLoading] = useState(false);
+    const [loading, setLoading] = useState(true);
+
+    const [notification, setNotification] = useState(null);
 
     useEffect(() => {
         store.dispatch(getUser())
     }, [])
 
-    console.log(user.user.isAuthenticated)
+   
+    // if(user.socket.socket != null && loading == true){
 
+    //     console.log("Here")
+    //     setLoading(false)
+
+        // user.socket.socket.on("Hire Notification To Guide", (data) =>{
+        //     console.log(data)
+        //     setNotification(data);
+  
+        // })
+    // }
+
+
+    useEffect(() =>{
+
+        if(user.socket.socket!=null){
+
+            user.socket.socket.on("Hire Notification To Guide", (data) =>{
+                console.log(data)
+                setNotification(data);
+      
+            })
+
+            user.socket.socket.on("Hire Notification To Tourist", (data) =>{
+                console.log(data)
+                setNotification(data);
+      
+            })
+        }
+
+    }, [user.socket])
+
+    
 
     return (
             <Router>
 
                 <Header data={user}/>
+
                 <Switch>
 
                     <Route exact path="/signUp/GuideDetails" component={GuideDetails}/>
@@ -65,7 +100,8 @@ const App = (user) => {
 
 
 const mapStateToProps = state => ({
-    user : state.user
+    user : state.user,
+    socket: state.socket
 });
 
 export default connect(mapStateToProps)(App);

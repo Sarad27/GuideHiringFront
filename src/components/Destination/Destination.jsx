@@ -39,7 +39,7 @@ const Destination = (props) =>{
         <>
             <Modal show={show}  modalClosed={() => {setShow(false)}}>
 
-                <DisplayGuides destinationId={props.match.params.id} userData={props.user.user.user} />
+                <DisplayGuides destinationId={props.match.params.id} userData={props.user.user.user} socket={props.socket.socket}/>
 
             </Modal>
 
@@ -77,7 +77,8 @@ const Destination = (props) =>{
 
 const mapStateToProps = (state) => {
     return{
-        user: state
+        user: state,
+        socket: state.socket
     }
 }
 

@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
 import {Redirect, useHistory} from "react-router-dom";
 import axios from "axios";
 
@@ -9,6 +9,9 @@ const Tourist = (props) =>{
     const history = useHistory();
 
     const user = props.data
+
+
+    const [hiredata, setHireData] = useState(null);
 
     const logout = async () =>{
 
@@ -22,9 +25,22 @@ const Tourist = (props) =>{
 
     }
 
+
+    useEffect(async() =>{
+
+        const token = localStorage.getItem('user');
+
+        const hireData = await axios.get("http://localhost:5000/api/hire", {headers: {"Authorization" : `Bearer ${token}`}})
+
+        setHireData(hireData.data.results[0])  
+
+    } ,[])
+
     return(
 
         <>
+
+        <div className="profile">
             <div className="profile_header">
 
                 <div className="profile_image">
@@ -54,6 +70,47 @@ const Tourist = (props) =>{
                 <p>Country : {user.tProfile.country}</p>
                 <p>Language : {user.tProfile.language}</p>
             </div>
+        </div>
+
+        <div className="profile">
+
+        <div className="notification_content">
+
+            <h3>Recent Notification</h3>
+
+            {
+                hiredata == null ? null :
+
+                hiredata !== null && hiredata.status == "Pending" ? 
+
+             
+                <p style={{padding: '40px'}}> Waiting for confirmation of {hiredata.guide.name} For <span style={{color: 'green'}}>Guiding </span> location {hiredata.destination.name} </p>
+
+           
+
+            :
+
+            hiredata !== null && hiredata.status == "Accepted" ? 
+
+            <p style={{padding: '40px'}}>{hiredata.guide.name} Have <span style={{color: 'green'}}>accepted </span>your Hire Request of  location {hiredata.destination.name}</p>
+
+            :
+
+            hiredata !== null && hiredata.status == "Rejected" ? 
+
+            <p style={{padding: '40px'}}>{hiredata.guide.name} Have <span style={{color: 'red'}}>cancelled </span> your Hire Request of location {hiredata.destination.name}</p>
+
+            :
+            null
+
+            }
+
+
+        </div>
+
+
+        </div>
+
         </>
 
     )

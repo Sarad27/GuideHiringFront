@@ -36,20 +36,13 @@ function Profile(props){
     return(
         <div className="profile_holder">
             <Container className="profile_container">
-
-                <div className="profile">
-
                     {user && user.role == "GUIDE" &&
-                    <Guide data={user}/>
+                    <Guide data={user} socket={props.socket.socket}/>
                     }
 
                     {user && user.role == "TOURIST" &&
                     <Tourist data={user}/>
                     }
-
-
-                </div>
-
             </Container>
         </div>
 
@@ -60,7 +53,8 @@ function Profile(props){
 const mapStatetoProps = (state) =>{
     return{
         users: state.user,
-        profile: state.profile
+        profile: state.profile,
+        socket: state.socket
     }
 }
 

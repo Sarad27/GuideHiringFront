@@ -50,3 +50,26 @@
     color: white;
     width: 10%;
 }
+
+.notification_content{
+    padding-top: 20px;
+    text-align: center;
+}
+
+.notificationBtn{
+
+    padding: 10px;
+    margin: 10px 40px 20px 40px;
+    border: none;
+    border-radius: 5px;
+    min-width: 150px;
+
+}
+
+.notificationRed{
+    background-color: #DF5E5E;
+}
+
+.notificationGreen{
+    background-color: #B5CDA3;
+}

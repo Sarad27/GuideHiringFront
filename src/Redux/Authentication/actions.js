@@ -1,4 +1,5 @@
 import axios from "axios";
+import io from "socket.io-client";
 
 export const getUser = () => async dispatch => {
 
@@ -9,6 +10,19 @@ export const getUser = () => async dispatch => {
         if(token){
             axios.get('http://localhost:5000/api/auth/', {headers: {"Authorization" : `Bearer ${token}`}})
                 .then(res =>{
+
+                    console.log(res.data.results.user)
+
+                    const socket = io("http://localhost:5000/",{secure: true, reconnection: true, rejectUnauthorized: false });
+
+                    //Naming socket by ID
+                    socket.emit("Name Socket", (res.data.results.user._id))
+
+                    dispatch({
+                        type: "GET_SOCKET",
+                        payload: socket
+                    })
+
                     dispatch({
                         type: "GET_USER",
                         payload: res.data.results.user

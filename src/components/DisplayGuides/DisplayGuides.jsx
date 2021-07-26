@@ -3,7 +3,6 @@ import axios from "axios";
 import './displayGuide.css'
 import {Col, Row} from "react-bootstrap";
 import {useHistory} from "react-router-dom";
-import io from "socket.io-client";
 
 
 const DisplayGuides = (props) =>{
@@ -12,8 +11,6 @@ const DisplayGuides = (props) =>{
     const history = useHistory();
 
     const [data, setData] = useState([]);
-
-    const [finalData, setFinalData] = useState([]);
 
     function calculateDistance(touristGeometry, guideGeometry){
 
@@ -94,7 +91,7 @@ const DisplayGuides = (props) =>{
 
                     var socketData = res.data.results
 
-                    if(res.data.code == 201){
+                    if(res.data.code === 201){
 
                         props.socket.emit("Hire Notification To Guide", (socketData))
 
@@ -112,7 +109,7 @@ const DisplayGuides = (props) =>{
                     <Col className="displayGuides_col">  {data.name} </Col>
                     <Col className="displayGuides_col"> 
                     
-                    {data.status == true ? <button className="displatGuides-btn online"></button> : <button className="displatGuides-btn offline"></button>}
+                    {data.status === true ? <button className="displatGuides-btn online"></button> : <button className="displatGuides-btn offline"></button>}
 
                      </Col>
                     <Col className="displayGuides_col"> {data.distance} km </Col>

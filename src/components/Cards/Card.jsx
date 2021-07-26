@@ -12,7 +12,7 @@ const Card = (props) =>{
 
             <div className="card_image">
 
-                <img className="card_img" src={image} />
+                <img className="card_img" src={image} alt="locationImage"/>
 
             </div>
 
@@ -22,7 +22,7 @@ const Card = (props) =>{
 
                     <p className="card_name">{data.name}</p>
 
-                    <img  className="card_image_location" src="/images/locationIcon.png"/>
+                    <img  className="card_image_location" src="/images/locationIcon.png" alt="pinPoint png"/>
 
                     <p className="card_location">{data.location}</p>
 

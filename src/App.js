@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react";
-import {BrowserRouter, BrowserRouter as Router, Route, Switch, Redirect} from "react-router-dom";
+import {BrowserRouter as Router, Route, Switch} from "react-router-dom";
 import Home from "./components/Home/Home";
 import Login from "./components/Authentication/Login";
 import SignUp from "./components/Authentication/SignUp";
@@ -13,31 +13,22 @@ import {connect} from "react-redux";
 import Header from "./components/Header/Header";
 import Footer from "./components/Footer/Footer";
 import Destination from "./components/Destination/Destination";
+import Modal from "components/Modal/Modal";
+import Notification from "components/Notification/Notification";
 
 
 const App = (user) => {
 
-    const [loading, setLoading] = useState(true);
 
     const [notification, setNotification] = useState(null);
+
+    const [show, setShow] = useState(false);
 
     useEffect(() => {
         store.dispatch(getUser())
     }, [])
 
-   
-    // if(user.socket.socket != null && loading == true){
-
-    //     console.log("Here")
-    //     setLoading(false)
-
-        // user.socket.socket.on("Hire Notification To Guide", (data) =>{
-        //     console.log(data)
-        //     setNotification(data);
-  
-        // })
-    // }
-
+    //Socket Code
 
     useEffect(() =>{
 
@@ -46,35 +37,41 @@ const App = (user) => {
             user.socket.socket.on("Hire Notification To Guide", (data) =>{
                 console.log(data)
                 setNotification(data);
+                setShow(true);
       
             })
 
             user.socket.socket.on("Hire Notification To Tourist", (data) =>{
                 console.log(data)
                 setNotification(data);
+                setShow(true);
       
             })
         }
 
     }, [user.socket])
 
-    
-
     return (
             <Router>
 
                 <Header data={user}/>
+
+                <Modal show={show}  modalClosed={() => {setShow(false)}}>
+
+                    <Notification data={notification} />
+
+                </Modal>
 
                 <Switch>
 
                     <Route exact path="/signUp/GuideDetails" component={GuideDetails}/>
                     <Route exact path="/signUp/TouristDetails" component={TouristDetails}/>
 
-                    {user.user.isAuthenticated == false &&
+                    {user.user.isAuthenticated === false &&
                     <Route exact path="/login" component={Login}/>}
 
                     {
-                        user.user.isAuthenticated == false &&
+                        user.user.isAuthenticated === false &&
                         <Route exact path="/signUp" component={SignUp}/>
                     }
 

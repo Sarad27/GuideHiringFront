@@ -1,16 +1,14 @@
 import React, {useEffect, useState} from "react";
 import axios from "axios";
-import {Container, Row, Col} from "react-bootstrap";
+import {Row, Col} from "react-bootstrap";
 import './destination.css'
 import Modal from "../Modal/Modal";
 import DisplayGuides from "../DisplayGuides/DisplayGuides";
-import {useHistory} from "react-router-dom";
 import {connect} from "react-redux";
 
 
 const Destination = (props) =>{
 
-    const history = useHistory();
 
     const [destinations, setDestinations] = useState([]);
 
@@ -18,17 +16,18 @@ const Destination = (props) =>{
 
     const [show, setShow] = useState(false);
 
-    useEffect(async() =>{
+    useEffect(() =>{
 
-        await axios.get(`http://localhost:5000/api/destination/${props.match.params.id}`).then(res =>{
+        async function fetchDestinationData(){
+            await axios.get(`http://localhost:5000/api/destination/${props.match.params.id}`).then(res =>{
             setDestinations(res.data.results)
         })
+        }
+        fetchDestinationData()
+    },[props.match.params.id])
 
-    },[])
-
-    useEffect(async () =>{
-
-        if(props.user.user.isAuthenticated == true){
+    useEffect( () =>{
+        if(props.user.user.isAuthenticated === true){
             setAuth(true)
         }
 
@@ -45,7 +44,7 @@ const Destination = (props) =>{
 
             <Row className="destination_div">
                 <Col lg={5}>
-                    <img className="destination_img" src= {`http://localhost:5000/${destinations.image}`} />
+                    <img className="destination_img" src= {`http://localhost:5000/${destinations.image}`} alt="DestinationImg"/>
                 </Col>
 
                 <Col className="destination_detail" lg={7}>

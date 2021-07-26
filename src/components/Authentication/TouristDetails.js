@@ -1,8 +1,8 @@
-import React,{useState , useEffect} from "react";
+import React,{useState } from "react";
 import axios from 'axios';
 import {Container} from "react-bootstrap";
 import "./auth.css"
-import {useHistory, Redirect} from "react-router-dom";
+import {useHistory} from "react-router-dom";
 import {connect} from "react-redux";
 
 function TouristDetail(user){

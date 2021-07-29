@@ -6,6 +6,7 @@ import SignUp from "./components/Authentication/SignUp";
 import GuideDetails from "./components/Authentication/GuideDetails";
 import TouristDetails from "./components/Authentication/TouristDetails";
 import Profile from "./components/Profile/Profile";
+import ViewProfile from "components/Profile/ViewProfile";
 import store from "./Redux/store";
 import {getUser} from "./Redux/Authentication/actions";
 import {connect} from "react-redux";
@@ -15,6 +16,8 @@ import Footer from "./components/Footer/Footer";
 import Destination from "./components/Destination/Destination";
 import Modal from "components/Modal/Modal";
 import Notification from "components/Notification/Notification";
+
+import Hire from "components/Hires/Hire";
 
 
 const App = (user) => {
@@ -84,6 +87,10 @@ const App = (user) => {
                             <Home/>
                         )
                     )}/>
+
+                    <Route exact path="/profile/:id"  component={ViewProfile}/>
+
+                    <Route exact path="/hires"  component={Hire}/>
 
                     <Route exact path="/destination/:id" component={Destination} />
                     <Route exact path="/" component={Home}/>

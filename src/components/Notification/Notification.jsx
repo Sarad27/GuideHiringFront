@@ -4,8 +4,6 @@ import './Notification.css';
 
 const Notification = (props) =>{
 
-    console.log(props)
-
     const redirectRespond = () =>{
 
        window.location.href= "http://localhost:3000/profile"

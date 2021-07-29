@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react";
-import {Redirect, useHistory} from "react-router-dom";
+import {Redirect, useHistory, Link} from "react-router-dom";
 import axios from "axios";
 
 import './profile.css'
@@ -26,6 +26,17 @@ const Tourist = (props) =>{
     }
 
 
+    const completedHire = async() =>{
+
+        const token = localStorage.getItem('user');
+
+        await axios.put(`http://localhost:5000/api/user/updateUser`, {data: hiredata} ,  {headers: {"Authorization" : `Bearer ${token}`}})
+            
+        window.location.reload();
+
+    }
+
+
     useEffect(async() =>{
 
         const token = localStorage.getItem('user');
@@ -35,6 +46,7 @@ const Tourist = (props) =>{
         setHireData(hireData.data.results[0])  
 
     } ,[])
+
 
     return(
 
@@ -51,6 +63,10 @@ const Tourist = (props) =>{
                     <h3> {user.name}</h3>
                     {user.email}
                 </div>
+
+                <Link to='/somewhere'>
+                    
+                </Link>
 
                 <button onClick={logout} className="logout">Log out</button>
 
@@ -69,6 +85,12 @@ const Tourist = (props) =>{
                 <p>City : {user.tProfile.city}</p>
                 <p>Country : {user.tProfile.country}</p>
                 <p>Language : {user.tProfile.language}</p>
+
+                <Link to='/hires'>
+                    <button className="logout">Hires</button>
+                </Link>
+
+                
             </div>
         </div>
 
@@ -79,20 +101,29 @@ const Tourist = (props) =>{
             <h3>Recent Notification</h3>
 
             {
-                hiredata == null ? null :
+                hiredata == null ? <p style={{padding: '40px'}}>No New Notifications</p> :
 
                 hiredata !== null && hiredata.status == "Pending" ? 
+                <>
 
              
                 <p style={{padding: '40px'}}> Waiting for confirmation of {hiredata.guide.name} For <span style={{color: 'green'}}>Guiding </span> location {hiredata.destination.name} </p>
 
+
            
+                </>
 
             :
 
             hiredata !== null && hiredata.status == "Accepted" ? 
+            <>
+            
 
             <p style={{padding: '40px'}}>{hiredata.guide.name} Have <span style={{color: 'green'}}>accepted </span>your Hire Request of  location {hiredata.destination.name}</p>
+
+            <button onClick = {() => completedHire()}>Completed</button>
+
+            </>
 
             :
 
@@ -101,6 +132,13 @@ const Tourist = (props) =>{
             <p style={{padding: '40px'}}>{hiredata.guide.name} Have <span style={{color: 'red'}}>cancelled </span> your Hire Request of location {hiredata.destination.name}</p>
 
             :
+
+            hiredata !== null && hiredata.status == "Completed" ? 
+
+            <p style={{padding: '40px'}}>No New Notifications</p>
+
+            :
+            
             null
 
             }

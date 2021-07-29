@@ -103,10 +103,12 @@ const DisplayGuides = (props) =>{
 
 
     const guides = data.map((data, index) =>{
+
+
         return(
             <div className="displayGuides_main">
                 <Row>
-                    <Col className="displayGuides_col">  {data.name} </Col>
+                    <Col className="displayGuides_col"> <a href={`http://localhost:3000/profile/${data._id}`} target="_blank">{data.name}</a>  </Col>
                     <Col className="displayGuides_col"> 
                     
                     {data.status === true ? <button className="displatGuides-btn online"></button> : <button className="displatGuides-btn offline"></button>}
@@ -116,7 +118,7 @@ const DisplayGuides = (props) =>{
                     <Col className="displayGuides_col"> {data.gProfile.city} </Col>
                     <Col className="displayGuides_col">
 
-                        <button className="displayGuides_btn" onClick={ () => hireGuide(index)}>Hire</button>
+                        <button disabled={!data.availability} className="displayGuides_btn" onClick={ () => hireGuide(index)}>Hire</button>
 
                     </Col>
                 </Row>

@@ -33,3 +33,7 @@ input[type = name], input[type = password], input[type = email]{
     width: 70%;
     padding: 10px;
 }
+
+.authButton:disabled{
+    background-color: #ba9ef0;
+}

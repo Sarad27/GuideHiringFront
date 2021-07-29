@@ -18,6 +18,8 @@ function SignUp(){
         role: ""
     })
 
+    console.log(values)
+
     const [valid, setValid] = useState(true);
 
     const handleChange = (e) =>{
@@ -34,6 +36,7 @@ function SignUp(){
 
         if(values.password !== values.confirmPassword){
             setValid(false);
+            return
         }
 
         const data = values;
@@ -79,7 +82,7 @@ function SignUp(){
 
                     <h2 style={{padding : "10px 0 10px 0", color: "#6415FF"}}>Sign Up</h2>
 
-                   <input type = "name"  class="form-field" placeholder="Name" name="name"  value={values.name} onChange={handleChange}/>
+                   <input type = "name"  class="form-field" placeholder="Full Name" name="name"  value={values.name} onChange={handleChange}/>
 
                    <input type = "email"  class="form-field" placeholder="Email" name="email" value={values.email} onChange={handleChange}/>
 
@@ -110,6 +113,7 @@ function SignUp(){
                        type="submit"
                        className="authButton"
                        onClick={handleSubmitClick}
+                       disabled={(values.email.length <= 9 || values.password.length<=5 || values.name.length<=4 || values.role.length <= 0)}
                    >
                        Register
                    </button>

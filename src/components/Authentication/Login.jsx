@@ -6,7 +6,7 @@ import "./auth.css"
 import store from "../../Redux/store";
 import {getUser} from "../../Redux/Authentication/actions";
 
-function SignUp(){
+function Login(){
 
     const history = useHistory();
 
@@ -24,6 +24,7 @@ function SignUp(){
             [name] : value
         }))
     }
+
 
     const handleSubmitClick = async (e)=>{
 
@@ -79,7 +80,7 @@ function SignUp(){
                     <h2 style={{padding : "10px 0 10px 0", color: "#6415FF"}}>Login</h2>
 
 
-                    <input type = "email"  class="form-field" placeholder="Email" name="email" value={values.email} onChange={handleChange}/>
+                    <input type = "email"  class="form-field" placeholder="Email" name="email" value={values.email}  onChange={handleChange}/>
 
                     <input type = "password"  class="form-field" placeholder="Password" name="password" value={values.password} onChange={handleChange}/>
 
@@ -94,6 +95,7 @@ function SignUp(){
                         type="submit"
                         className="authButton"
                         onClick={handleSubmitClick}
+                        disabled={(values.email.length <= 9 || values.password.length<=6)}
                     >
                         Sign In
                     </button>
@@ -109,4 +111,4 @@ function SignUp(){
     )
 }
 
-export default SignUp;
+export default Login;

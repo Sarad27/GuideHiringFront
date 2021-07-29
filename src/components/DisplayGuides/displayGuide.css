@@ -15,6 +15,14 @@
     line-height: 50px;
 }
 
+.displayGuides_col a{
+    color : black;
+}
+
+.displayGuides_col button:disabled{
+    background-color: red;
+}
+
 .displatGuides-btn{
     border-radius: 50%;
     border: none;

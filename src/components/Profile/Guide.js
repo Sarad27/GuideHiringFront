@@ -57,6 +57,16 @@ const Guide = (props) =>{
 
     }
 
+    const completedHire = async() =>{
+
+        const token = localStorage.getItem('user');
+
+        await axios.put(`http://localhost:5000/api/user/updateUser`, {data: hiredata} ,  {headers: {"Authorization" : `Bearer ${token}`}})
+            
+        window.location.reload();
+
+    }
+
     // console.log(props.data._id)
 
 
@@ -105,6 +115,8 @@ const Guide = (props) =>{
                 <div className="profile_name">
                     <h3> {user.name}</h3>
                     {user.email}
+                    <br />
+                {user.gProfile.rating}/5 rating out of {user.gProfile.rateCount} ratings
                 </div>
 
                 <button onClick={logout} className="logout">Log out</button>
@@ -133,7 +145,7 @@ const Guide = (props) =>{
 
             {
 
-                hiredata == null ? null :
+                hiredata == null ? <p style={{padding: '40px'}}>No New Notifications</p> :
 
 
             hiredata !== null && hiredata.status == "Pending" ? 
@@ -152,13 +164,24 @@ const Guide = (props) =>{
 
             hiredata !== null && hiredata.status == "Accepted" ? 
 
+            <>
+
             <p style={{padding: '40px'}}>You Have <span style={{color: 'green'}}>accepted </span>the Hire Request of {hiredata.tourist.name} to guide him in location {hiredata.destination.name}</p>
 
+            <button onClick = {() => completedHire()}>Completed</button>
+
+            </>
             :
 
             hiredata !== null && hiredata.status == "Rejected" ? 
 
             <p style={{padding: '40px'}}>You Have <span style={{color: 'red'}}>cancelled </span> the Hire Request of {hiredata.tourist.name} to guide him in location {hiredata.destination.name}</p>
+
+            :
+
+            hiredata !== null && hiredata.status == "Completed" ? 
+
+            <p style={{padding: '40px'}}>No New Notifications</p>
 
             :
             null

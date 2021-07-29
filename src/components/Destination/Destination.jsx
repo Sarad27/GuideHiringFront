@@ -35,6 +35,7 @@ const Destination = (props) =>{
 
 
     return(
+
         <>
             <Modal show={show}  modalClosed={() => {setShow(false)}}>
 
@@ -60,6 +61,8 @@ const Destination = (props) =>{
                         {auth === false ? <button className="destination_button" onClick={() =>{ window.location.href = 'http://localhost:3000/login';  }}> Login To Hire</button> :
 
                                 props.user.user.user.role === "GUIDE" ? <> </> :
+
+                                props.user.user.user.availability === false ? <p>Alredy Hired</p> :
 
                             <button onClick={() =>{ setShow(true)}} className="destination_button">Hire A Guide</button>}
 
